@@ -14,21 +14,34 @@ jobs:
       - name: Fetch Core Repository
         uses: actions/checkout@v4
 
-      # ==========================================
-      # FIXED: Cache removed to avoid lockfile error
-      # ==========================================
       - name: Setup Enterprise Node.js Architecture
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
       # =======================================================
-      # CORE ENGINE: AUTOMATICALLY GENERATING 1000+ TOOLS SITE
+      # FIXED CORE ENGINE: GENERATING BOTH PAGE & ROOT LAYOUT
       # =======================================================
       - name: Auto-Generate Advanced Multi-Category Tool Platform
         run: |
           mkdir -p src/app
           
+          # 1. FIXED: Creating the mandatory Root Layout File
+          cat << 'EOF' > src/app/layout.js
+          import React from 'react';
+
+          export default function RootLayout({ children }) {
+            return (
+              <html lang="en">
+                <body style={{ margin: 0, padding: 0, backgroundColor: '#05070f' }}>
+                  {children}
+                </body>
+              </html>
+            );
+          }
+          EOF
+          
+          # 2. Creating the main Page File
           cat << 'EOF' > src/app/page.js
           import React from 'react';
 
