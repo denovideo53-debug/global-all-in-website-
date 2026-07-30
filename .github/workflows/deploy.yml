@@ -1,32 +1,46 @@
-name: Global Ultimate Multi-Tool & High-Yield Earning Pipeline
+name: Deploy Multi-Tool Platform to GitHub Pages
 
 on:
   push:
     branches: [ main, master ]
   workflow_dispatch:
 
-jobs:
-  build_optimize_and_deploy:
-    name: Deploy Advanced Multi-Tool Global Network
-    runs-on: ubuntu-latest
+# GitHub Pages pe deploy karne ke liye permissions zaroori hain
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build_and_deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
     steps:
-      - name: Fetch Core Repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Enterprise Node.js Architecture
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
       # =======================================================
-      # FIXED CORE ENGINE: GENERATING BOTH PAGE & ROOT LAYOUT
+      # CORE ENGINE: DYNAMIC EXTENDED NEXT.JS APPLICATION
       # =======================================================
       - name: Auto-Generate Advanced Multi-Category Tool Platform
         run: |
           mkdir -p src/app
           
-          # 1. FIXED: Creating the mandatory Root Layout File
+          # 1. Mandatory Root Layout File
           cat << 'EOF' > src/app/layout.js
           import React from 'react';
 
@@ -41,7 +55,7 @@ jobs:
           }
           EOF
           
-          # 2. Creating the main Page File
+          # 2. Main Premium Core Page File
           cat << 'EOF' > src/app/page.js
           import React from 'react';
 
@@ -154,15 +168,26 @@ jobs:
           }
           EOF
 
+          # GitHub Pages static export ke liye basepath add karna zaroori hai
+          cat << 'EOF' > next.config.js
+          /** @type {import('next').NextConfig} */
+          const nextConfig = {
+            output: 'export',
+            basePath: '/global-all-in-website',
+            images: {
+              unoptimized: true,
+            },
+          };
+          module.exports = nextConfig;
+          EOF
+
           cat << 'EOF' > package.json
           {
             "name": "global-mega-toolbox",
             "version": "1.0.0",
             "private": true,
             "scripts": {
-              "dev": "next dev",
-              "build": "next build",
-              "start": "next start"
+              "build": "next build"
             },
             "dependencies": {
               "next": "^14.2.0",
@@ -172,23 +197,19 @@ jobs:
           }
           EOF
 
-      - name: Install Architecture Dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Build Global Production Asset Bundles
+      - name: Build and Static Export Next.js App
         env:
           NEXT_PUBLIC_MONETAG_DIRECT_LINK: ${{ secrets.MONETAG_DIRECT_LINK }}
         run: npm run build
 
-      # =======================================================
-      # EDGE NETWORKS: HIGH CAPACITY DEPLOYMENT ARCHITECTURE
-      # =======================================================
-      - name: Deploy to Cloudflare Pages Engine
-        uses: cloudflare/pages-action@v1
+      - name: Upload Build Artifacts
+        uses: actions/upload-pages-artifact@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-          directory: .next
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-        continue-on-error: true
+          path: ./out
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
