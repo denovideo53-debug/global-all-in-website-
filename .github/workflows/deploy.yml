@@ -27,15 +27,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22' # Fixed to Node 24/22 to avoid deprecation warnings
+          node-version: '20'
 
-      # =======================================================
-      # FIXED: Added enablement to auto-activate Pages feature
-      # =======================================================
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Auto-Generate Advanced Multi-Category Tool Platform
         run: |
@@ -168,7 +163,6 @@ jobs:
           }
           EOF
 
-          # Fixed repository mapping path based on your real repo name
           cat << 'EOF' > next.config.js
           const nextConfig = {
             output: 'export',
