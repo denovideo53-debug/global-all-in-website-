@@ -5,7 +5,6 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
-# GitHub Pages pe deploy karne ke liye permissions zaroori hain
 permissions:
   contents: read
   pages: write
@@ -28,19 +27,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22' # Fixed to Node 24/22 to avoid deprecation warnings
 
+      # =======================================================
+      # FIXED: Added enablement to auto-activate Pages feature
+      # =======================================================
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
-      # =======================================================
-      # CORE ENGINE: DYNAMIC EXTENDED NEXT.JS APPLICATION
-      # =======================================================
       - name: Auto-Generate Advanced Multi-Category Tool Platform
         run: |
           mkdir -p src/app
           
-          # 1. Mandatory Root Layout File
           cat << 'EOF' > src/app/layout.js
           import React from 'react';
 
@@ -55,9 +55,9 @@ jobs:
           }
           EOF
           
-          # 2. Main Premium Core Page File
           cat << 'EOF' > src/app/page.js
           import React from 'react';
+          import Script from 'next/script';
 
           export const metadata = {
             title: 'Free Super Web Tools | Premium Dynamic Multi-Utility Center',
@@ -83,6 +83,7 @@ jobs:
           ];
 
           export default function MultiToolPlatform() {
+            const adLink = process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#';
             return (
               <div style={{
                 margin: 0, padding: 0, boxSizing: 'border-box',
@@ -90,11 +91,10 @@ jobs:
                 backgroundColor: '#05070f', color: '#f3f4f6', minHeight: '100vh',
                 display: 'flex', flexDirection: 'column'
               }}>
-                <script 
-                  src={process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#'}
+                <Script 
+                  src={adLink}
                   strategy="afterInteractive"
                   data-cfasync="false" 
-                  async
                 />
 
                 <nav style={{
@@ -113,7 +113,7 @@ jobs:
                     <div style={{ fontSize: '0.8rem', color: '#10b981', background: 'rgba(16,185,129,0.1)', padding: '0.4rem 0.8rem', borderRadius: '9999px', fontWeight: 'bold' }}>
                       🟢 1,024+ Live Utilities Active
                     </div>
-                    <a href={process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#'} style={{ background: 'linear-gradient(to right, #2563eb, #7c3aed)', color: '#fff', textDecoration: 'none', padding: '0.5rem 1.2rem', borderRadius: '0.5rem', fontSize: '0.85rem', fontWeight: 'bold' }}>
+                    <a href={adLink} style={{ background: 'linear-gradient(to right, #2563eb, #7c3aed)', color: '#fff', textDecoration: 'none', padding: '0.5rem 1.2rem', borderRadius: '0.5rem', fontSize: '0.85rem', fontWeight: 'bold' }}>
                       ⭐ Request Custom Tool
                     </a>
                   </div>
@@ -129,7 +129,7 @@ jobs:
 
                   <div style={{ maxWidth: '650px', margin: '0 auto', display: 'flex', gap: '0.75rem', background: '#0f172a', padding: '0.5rem', borderRadius: '1rem', border: '1px solid #1e293b' }}>
                     <input type="text" placeholder="Search 1,000+ tools (e.g., PDF Merge, PNG Compressor, AI Writer)..." style={{ flexGrow: 1, background: 'transparent', border: 'none', padding: '0.75rem', color: '#fff', fontSize: '0.95rem', outline: 'none' }} />
-                    <a href={process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#'} style={{ background: '#fff', color: '#05070f', textDecoration: 'none', padding: '0.75rem 1.5rem', borderRadius: '0.75rem', fontWeight: 'bold', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+                    <a href={adLink} style={{ background: '#fff', color: '#05070f', textDecoration: 'none', padding: '0.75rem 1.5rem', borderRadius: '0.75rem', fontWeight: 'bold', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
                       🔍 Search Tools
                     </a>
                   </div>
@@ -145,7 +145,7 @@ jobs:
                         </div>
                         
                         <a 
-                          href={process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#'} 
+                          href={adLink} 
                           style={{ 
                             background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.2)', 
                             color: '#60a5fa', textDecoration: 'none', padding: '0.75rem', 
@@ -168,12 +168,11 @@ jobs:
           }
           EOF
 
-          # GitHub Pages static export ke liye basepath add karna zaroori hai
+          # Fixed repository mapping path based on your real repo name
           cat << 'EOF' > next.config.js
-          /** @type {import('next').NextConfig} */
           const nextConfig = {
             output: 'export',
-            basePath: '/global-all-in-website',
+            basePath: '/global-all-in-website-',
             images: {
               unoptimized: true,
             },
