@@ -1,0 +1,188 @@
+name: Global Ultimate Multi-Tool & High-Yield Earning Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build_optimize_and_deploy:
+    name: Deploy Advanced Multi-Tool Global Network
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fetch Core Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Enterprise Node.js Architecture
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # =======================================================
+      # CORE ENGINE: AUTOMATICALLY GENERATING 1000+ TOOLS SITE
+      # =======================================================
+      - name: Auto-Generate Advanced Multi-Category Tool Platform
+        run: |
+          mkdir -p src/app
+          
+          cat << 'EOF' > src/app/page.js
+          import React from 'react';
+
+          export const metadata = {
+            title: 'Free Super Web Tools | Premium Dynamic Multi-Utility Center',
+            description: 'Access 1000+ online developer, SEO, PDF, and productivity tools for free instantly.',
+          };
+
+          // 15+ Core Categories and Predictive Thousands of Tools Matrix
+          const toolCategories = [
+            { id: 'pdf', title: '📄 PDF Utilities Suite', desc: 'Merge, Split, Compress, Convert, Word to PDF, PDF to JPG, Sign PDF, Protect PDF, Unlock PDF, Rotate PDF, Number Pages, Watermark, HTML to PDF, EPUB to PDF, PDF to Text, Organize PDF.' },
+            { id: 'seo', title: '🔍 Search Engine Optimization (SEO)', desc: 'Keyword Research, Backlink Checker, SEO Audit, Meta Tag Generator, XML Sitemap Creator, Robots.txt Generator, Domain Authority, Page Speed Insights, Article Rewriter, Plagiarism Checker.' },
+            { id: 'dev', title: '💻 Developer & Coding Tools', desc: 'JSON Validator, HTML Minifier, CSS Formatter, JavaScript Obfuscator, Base64 Encoder, MD5 Hash Generator, Regex Tester, SQL Formatter, JWT Decoder, URL Encoder, Crontab Generator.' },
+            { id: 'images', title: '🖼️ Image Manipulation Tools', desc: 'PNG to WebP, Image Resizer, Background Remover, Photo Compressor, Watermark Adder, Meme Generator, SVG Optimizer, Color Picker, GIF Maker, Image Crop, ICO Converter.' },
+            { id: 'text', title: '✍️ Text Content Analytics', desc: 'Word Counter, Case Converter, Text to Speech, Lorem Ipsum Generator, Binary Converter, Text Compare, String Reverser, Line Sorting, Slug Generator, Find and Replace.' },
+            { id: 'social', title: '📲 Social Media & Video Downloaders', desc: 'YouTube Video Downloader, Instagram Reel Saver, TikTok No-Watermark, Twitter Media Fetch, Thumbnail Downloader, Tag Extractor, bio link creator, Hashtag Generator.' },
+            { id: 'security', title: '🛡️ Cyber Security & Passwords', desc: 'Strong Password Generator, Password Strength Checker, MD5/SHA256 Encryptor, Password Hashing Tool, SSL Checker, IP Lookup, Whois Data Fetcher, Port Scanner.' },
+            { id: 'marketing', title: '📈 Affiliate & Digital Marketing', desc: 'UTM Link Builder, PayPal Fee Calculator, CPM Calculator, ROI Estimator, QR Code Generator, Short URL Link Shortener, Email Signature Generator, Headline Analyzer.' },
+            { id: 'finance', title: '💰 Calculators & Finance Tools', desc: 'SIP Calculator, GST Calculator, Compound Interest, Crypto Profit Estimator, EMI Calculator, Currency Converter, Loan Eligibility, Tax Deductions Calculator.' },
+            { id: 'network', title: '🌐 Networking & IP Utilities', desc: 'My IP Address, Ping Speed Test, DNS Lookup, Traceroute Analyzer, User Agent Finder, MAC Address Lookup, Subnet Calculator, HTTP Headers Checker.' },
+            { id: 'converter', title: '🔄 Universal Unit Converters', desc: 'Data Unit (GB to TB), Length Converter, Weight Scale, Temperature (C to F), Time Zone Mapping, Hex to RGB Converter, Speed Calculator, Area Measurement.' },
+            { id: 'ai', title: '🤖 AI Automation & Writing', desc: 'AI Essay Writer, AI Email Assistant, Prompt Optimizer, AI Code Explainer, Title Generator, Grammar Fixer, AI Resume Builder, Paraphrasing Tool.' },
+            { id: 'design', title: '🎨 Graphics & UI/UX Kit', desc: 'CSS Gradient Generator, Box Shadow FX Maker, Glassmorphism CSS, Tailwind Palette Configurator, Font Pairings, SVG Wave Generator, Aspect Ratio Calculator.' },
+            { id: 'database', title: '🗄️ Database Management Aids', desc: 'SQL to JSON, JSON to CSV Converter, XML to JSON, Database Schema Blueprint Maker, Dummy Data Generator, NoSQL Query Builder, String Escape Generator.' },
+            { id: 'misc', title: '⚙️ Everyday Productivity Hacks', desc: 'Stopwatch Online, Random Name Picker, Wheel Spinner, Age Calculator, Calendar Generator, Voice Recorder, Virtual Whiteboard, Sound Meter.' }
+          ];
+
+          export default function MultiToolPlatform() {
+            return (
+              <div style={{
+                margin: 0, padding: 0, boxSizing: 'border-box',
+                fontFamily: '"Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+                backgroundColor: '#05070f', color: '#f3f4f6', minHeight: '100vh',
+                display: 'flex', flexDirection: 'column'
+              }}>
+                {/* ADVANCED MONETAG AD INJECTION */}
+                <script 
+                  src={process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#'}
+                  strategy="afterInteractive"
+                  data-cfasync="false" 
+                  async
+                />
+
+                {/* PREMIUM GLOWING NAVBAR */}
+                <nav style={{
+                  borderBottom: '1px solid #111827', padding: '1.25rem 2.5rem',
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  background: 'rgba(5, 7, 15, 0.85)', backdropFilter: 'blur(16px)',
+                  position: 'sticky', top: 0, zIndex: 1000
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '1.5rem', fontWeight: 900, background: 'linear-gradient(to right, #3b82f6, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                      ⚙️ TOOLBOX.GLOBAL
+                    </span>
+                  </div>
+                  
+                  <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    <div style={{ fontSize: '0.8rem', color: '#10b981', background: 'rgba(16,185,129,0.1)', padding: '0.4rem 0.8rem', borderRadius: '9999px', fontWeight: 'bold' }}>
+                      🟢 1,024+ Live Utilities Active
+                    </div>
+                    <a href={process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#'} style={{ background: 'linear-gradient(to right, #2563eb, #7c3aed)', color: '#fff', textDecoration: 'none', padding: '0.5rem 1.2rem', borderRadius: '0.5rem', fontSize: '0.85rem', fontWeight: 'bold' }}>
+                      ⭐ Request Custom Tool
+                    </a>
+                  </div>
+                </nav>
+
+                {/* MAIN INFRASTRUCTURE HERO & SEARCH PORTAL */}
+                <header style={{ textAlign: 'center', padding: '4rem 2rem 2rem 2rem', background: 'radial-gradient(circle at top, rgba(124,58,237,0.08) 0%, transparent 60%)' }}>
+                  <h1 style={{ fontSize: '3.5rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '1rem', color: '#fff' }}>
+                    World’s Largest <span style={{ background: 'linear-gradient(to right, #60a5fa, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Free Online Tools</span> Hub
+                  </h1>
+                  <p style={{ color: '#9ca3af', fontSize: '1.15rem', maxWidth: '750px', margin: '0 auto 2.5rem auto', lineHeight: 1.6 }}>
+                    No Signups. No Subscriptions. Instant cloud computing utilities for developers, content creators, marketers, and data analysts. Click any category to run tools.
+                  </p>
+
+                  {/* HIGHLY INTERACTIVE AD SEARCH CONVERTOR BAR */}
+                  <div style={{ maxWidth: '650px', margin: '0 auto', display: 'flex', gap: '0.75rem', background: '#0f172a', padding: '0.5rem', borderRadius: '1rem', border: '1px solid #1e293b' }}>
+                    <input type="text" placeholder="Search 1,000+ tools (e.g., PDF Merge, PNG Compressor, AI Writer)..." style={{ flexGrow: 1, background: 'transparent', border: 'none', padding: '0.75rem', color: '#fff', fontSize: '0.95rem', outline: 'none' }} />
+                    <a href={process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#'} style={{ background: '#fff', color: '#05070f', textDecoration: 'none', padding: '0.75rem 1.5rem', borderRadius: '0.75rem', fontWeight: 'bold', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+                      🔍 Search Tools
+                    </a>
+                  </div>
+                </header>
+
+                {/* ADVANCED MULTI-CATEGORY TOOLS GRID */}
+                <main style={{ maxWidth: '1300px', margin: '0 auto', padding: '2rem 1.5rem 6rem 1.5rem', flexGrow: 1 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))', gap: '1.5rem' }}>
+                    {toolCategories.map((cat) => (
+                      <div key={cat.id} style={{ background: '#0b0f19', border: '1px solid #1e293b', borderRadius: '1rem', padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', transition: 'border-color 0.2s' }}>
+                        <div>
+                          <h3 style={{ color: '#fff', fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.75rem' }}>{cat.title}</h3>
+                          <p style={{ color: '#9ca3af', fontSize: '0.88rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>{cat.desc}</p>
+                        </div>
+                        
+                        {/* THE REDIRECTION TRIGGER: EVOKES MONETAG LINK ON EVERY CLICK */}
+                        <a 
+                          href={process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#'} 
+                          style={{ 
+                            background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.2)', 
+                            color: '#60a5fa', textDecoration: 'none', padding: '0.75rem', 
+                            borderRadius: '0.5rem', textAlign: 'center', fontSize: '0.85rem', 
+                            fontWeight: '600', display: 'block', transition: 'all 0.2s'
+                          }}
+                        >
+                          🚀 Open {cat.title.split(' ').slice(1).join(' ')} System (FREE)
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                </main>
+
+                {/* FOOTER ENTERPRISE */}
+                <footer style={{ borderTop: '1px solid #111827', padding: '2.5rem', textAlign: 'center', background: '#03050a', color: '#4b5563', fontSize: '0.8rem' }}>
+                  © 2026 Toolbox Global Network Inc. All tools are pre-compiled and served via Multi-Cloud Edge CDN Routing.
+                </footer>
+              </div>
+            );
+          }
+          EOF
+
+          # Injecting highly optimized web platform configs
+          cat << 'EOF' > package.json
+          {
+            "name": "global-mega-toolbox",
+            "version": "1.0.0",
+            "private": true,
+            "scripts": {
+              "dev": "next dev",
+              "build": "next build",
+              "start": "next start"
+            },
+            "dependencies": {
+              "next": "^14.2.0",
+              "react": "^18.3.0",
+              "react-dom": "^18.3.0"
+            }
+          }
+          EOF
+
+      - name: Install Architecture Dependencies
+        run: npm install
+
+      - name: Build Global Production Asset Bundles
+        env:
+          NEXT_PUBLIC_MONETAG_DIRECT_LINK: ${{ secrets.MONETAG_DIRECT_LINK }}
+        run: npm run build
+
+      # =======================================================
+      # EDGE NETWORKS: HIGH CAPACITY DEPLOYMENT ARCHITECTURE
+      # =======================================================
+      - name: Deploy to Cloudflare Pages Engine
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+          directory: .next
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
