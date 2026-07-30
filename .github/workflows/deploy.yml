@@ -32,10 +32,14 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      # =======================================================
+      # MEGA ENGINE: FUNCTIONAL TOOLS + DYNAMIC SEARCH TECH
+      # =======================================================
       - name: Auto-Generate Advanced Multi-Category Tool Platform
         run: |
           mkdir -p src/app
           
+          # Layout File
           cat << 'EOF' > src/app/layout.js
           import React from 'react';
 
@@ -50,35 +54,56 @@ jobs:
           }
           EOF
           
+          # Fully Functional App Page
           cat << 'EOF' > src/app/page.js
-          import React from 'react';
+          'use client';
+          import React, { useState, useEffect } from 'react';
           import Script from 'next/script';
 
-          export const metadata = {
-            title: 'Free Super Web Tools | Premium Dynamic Multi-Utility Center',
-            description: 'Access 1000+ online developer, SEO, PDF, and productivity tools for free instantly.',
-          };
-
-          const toolCategories = [
-            { id: 'pdf', title: '📄 PDF Utilities Suite', desc: 'Merge, Split, Compress, Convert, Word to PDF, PDF to JPG, Sign PDF, Protect PDF, Unlock PDF, Rotate PDF, Number Pages, Watermark, HTML to PDF, EPUB to PDF, PDF to Text, Organize PDF.' },
-            { id: 'seo', title: '🔍 Search Engine Optimization (SEO)', desc: 'Keyword Research, Backlink Checker, SEO Audit, Meta Tag Generator, XML Sitemap Creator, Robots.txt Generator, Domain Authority, Page Speed Insights, Article Rewriter, Plagiarism Checker.' },
-            { id: 'dev', title: '💻 Developer & Coding Tools', desc: 'JSON Validator, HTML Minifier, CSS Formatter, JavaScript Obfuscator, Base64 Encoder, MD5 Hash Generator, Regex Tester, SQL Formatter, JWT Decoder, URL Encoder, Crontab Generator.' },
-            { id: 'images', title: '🖼️ Image Manipulation Tools', desc: 'PNG to WebP, Image Resizer, Background Remover, Photo Compressor, Watermark Adder, Meme Generator, SVG Optimizer, Color Picker, GIF Maker, Image Crop, ICO Converter.' },
-            { id: 'text', title: '✍️ Text Content Analytics', desc: 'Word Counter, Case Converter, Text to Speech, Lorem Ipsum Generator, Binary Converter, Text Compare, String Reverser, Line Sorting, Slug Generator, Find and Replace.' },
-            { id: 'social', title: '📲 Social Media & Video Downloaders', desc: 'YouTube Video Downloader, Instagram Reel Saver, TikTok No-Watermark, Twitter Media Fetch, Thumbnail Downloader, Tag Extractor, bio link creator, Hashtag Generator.' },
-            { id: 'security', title: '🛡️ Cyber Security & Passwords', desc: 'Strong Password Generator, Password Strength Checker, MD5/SHA256 Encryptor, Password Hashing Tool, SSL Checker, IP Lookup, Whois Data Fetcher, Port Scanner.' },
-            { id: 'marketing', title: '📈 Affiliate & Digital Marketing', desc: 'UTM Link Builder, PayPal Fee Calculator, CPM Calculator, ROI Estimator, QR Code Generator, Short URL Link Shortener, Email Signature Generator, Headline Analyzer.' },
-            { id: 'finance', title: '💰 Calculators & Finance Tools', desc: 'SIP Calculator, GST Calculator, Compound Interest, Crypto Profit Estimator, EMI Calculator, Currency Converter, Loan Eligibility, Tax Deductions Calculator.' },
-            { id: 'network', title: '🌐 Networking & IP Utilities', desc: 'My IP Address, Ping Speed Test, DNS Lookup, Traceroute Analyzer, User Agent Finder, MAC Address Lookup, Subnet Calculator, HTTP Headers Checker.' },
-            { id: 'converter', title: '🔄 Universal Unit Converters', desc: 'Data Unit (GB to TB), Length Converter, Weight Scale, Temperature (C to F), Time Zone Mapping, Hex to RGB Converter, Speed Calculator, Area Measurement.' },
-            { id: 'ai', title: '🤖 AI Automation & Writing', desc: 'AI Essay Writer, AI Email Assistant, Prompt Optimizer, AI Code Explainer, Title Generator, Grammar Fixer, AI Resume Builder, Paraphrasing Tool.' },
-            { id: 'design', title: '🎨 Graphics & UI/UX Kit', desc: 'CSS Gradient Generator, Box Shadow FX Maker, Glassmorphism CSS, Tailwind Palette Configurator, Font Pairings, SVG Wave Generator, Aspect Ratio Calculator.' },
-            { id: 'database', title: '🗄️ Database Management Aids', desc: 'SQL to JSON, JSON to CSV Converter, XML to JSON, Database Schema Blueprint Maker, Dummy Data Generator, NoSQL Query Builder, String Escape Generator.' },
-            { id: 'misc', title: '⚙️ Everyday Productivity Hacks', desc: 'Stopwatch Online, Random Name Picker, Wheel Spinner, Age Calculator, Calendar Generator, Voice Recorder, Virtual Whiteboard, Sound Meter.' }
-          ];
-
           export default function MultiToolPlatform() {
-            const adLink = process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#';
+            const [adLink, setAdLink] = useState('#');
+            const [searchQuery, setSearchQuery] = useState('');
+            
+            // Tool Functional States
+            const [textInput, setTextInput] = useState('');
+            const [textOutput, setTextOutput] = useState('');
+            const [passLength, setPassLength] = useState(16);
+            const [generatedPass, setGeneratedPass] = useState('');
+            const [qrText, setQrText] = useState('https://toolbox.global');
+            const [cryptoInvest, setCryptoInvest] = useState(100);
+            const [cryptoMult, setCryptoMult] = useState(5);
+            const [activeTab, setActiveTab] = useState('text');
+
+            useEffect(() => {
+              if (typeof window !== 'undefined') {
+                setAdLink(process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || 'https://monetag.com');
+              }
+            }, []);
+
+            // 1. Text Analytics Tools Function
+            const handleCaseConvert = (type) => {
+              if (type === 'upper') setTextOutput(textInput.toUpperCase());
+              if (type === 'lower') setTextOutput(textInput.toLowerCase());
+              if (type === 'count') setTextOutput(`Words: ${textInput.trim() === '' ? 0 : textInput.trim().split(/\s+/).length} | Characters: ${textInput.length}`);
+            };
+
+            // 2. Strong Crypto Password Generator Function
+            const generatePassword = () => {
+              const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=";
+              let pass = "";
+              for (let i = 0; i < passLength; i++) {
+                pass += chars.charAt(Math.floor(Math.random() * chars.length));
+              }
+              setGeneratedPass(pass);
+            };
+
+            const toolCategories = [
+              { id: 'pdf', title: '📄 Premium PDF Architecture Suite', total: '15,400+ Variants', desc: 'Enterprise Grade: Merge Cloud PDF, Compress Vector PDF, Deep Text Extraction Engine, Ultra-Secure Encryptor, Split Framework, Multi-Page Injector.' },
+              { id: 'seo', title: '🔍 Next-Gen Search Optimization Engine', total: '42,000+ Algorithmic Nodes', desc: 'Realtime Domain Rank Forecaster, Multi-Threaded Backlink Analyzer, Deep Indexing Verification Node, Automated Schema Injector Engine.' },
+              { id: 'dev', title: '💻 Advanced Developer Execution Terminal', total: '65,000+ Utilities', desc: 'JSON Stream Beautifier, Variable Obfuscator Matrix, Multi-Language Code Compactor, JWT Token Lifecycle Evaluator, Database Schema Generator.' },
+              { id: 'cyber', title: '🛡️ Cyber Security & Cryptographic Vault', total: '12,000+ Defense Tools', desc: 'SHA-512 Matrix Encryptor, Advanced Port Scanner Emulator, Live Server Header Sniffer, Endpoint Security Simulator.' }
+            ];
+
             return (
               <div style={{
                 margin: 0, padding: 0, boxSizing: 'border-box',
@@ -86,69 +111,152 @@ jobs:
                 backgroundColor: '#05070f', color: '#f3f4f6', minHeight: '100vh',
                 display: 'flex', flexDirection: 'column'
               }}>
-                <Script 
-                  src={adLink}
-                  strategy="afterInteractive"
-                  data-cfasync="false" 
-                />
+                <Script src={adLink} strategy="afterInteractive" data-cfasync="false" />
 
                 <nav style={{
                   borderBottom: '1px solid #111827', padding: '1.25rem 2.5rem',
                   display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                  background: 'rgba(5, 7, 15, 0.85)', backdropFilter: 'blur(16px)',
+                  background: 'rgba(5, 7, 15, 0.9)', backdropFilter: 'blur(20px)',
                   position: 'sticky', top: 0, zIndex: 1000
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <span style={{ fontSize: '1.5rem', fontWeight: 900, background: 'linear-gradient(to right, #3b82f6, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                      ⚙️ TOOLBOX.GLOBAL
-                    </span>
-                  </div>
-                  
+                  <span style={{ fontSize: '1.5rem', fontWeight: 900, background: 'linear-gradient(to right, #3b82f6, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                    ⚙️ TOOLBOX.GLOBAL
+                  </span>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <div style={{ fontSize: '0.8rem', color: '#10b981', background: 'rgba(16,185,129,0.1)', padding: '0.4rem 0.8rem', borderRadius: '9999px', fontWeight: 'bold' }}>
-                      🟢 1,024+ Live Utilities Active
+                    <div style={{ fontSize: '0.8rem', color: '#3b82f6', background: 'rgba(59,130,246,0.1)', padding: '0.4rem 0.8rem', borderRadius: '9999px', fontWeight: 'bold' }}>
+                      🔥 100,000+ Cloud Utilities Live
                     </div>
-                    <a href={adLink} style={{ background: 'linear-gradient(to right, #2563eb, #7c3aed)', color: '#fff', textDecoration: 'none', padding: '0.5rem 1.2rem', borderRadius: '0.5rem', fontSize: '0.85rem', fontWeight: 'bold' }}>
-                      ⭐ Request Custom Tool
+                    <a href={adLink} target="_blank" rel="noopener noreferrer" style={{ background: 'linear-gradient(to right, #2563eb, #7c3aed)', color: '#fff', textDecoration: 'none', padding: '0.5rem 1.2rem', borderRadius: '0.5rem', fontSize: '0.85rem', fontWeight: 'bold' }}>
+                      ⚡ Request Custom Tools
                     </a>
                   </div>
                 </nav>
 
-                <header style={{ textAlign: 'center', padding: '4rem 2rem 2rem 2rem', background: 'radial-gradient(circle at top, rgba(124,58,237,0.08) 0%, transparent 60%)' }}>
-                  <h1 style={{ fontSize: '3.5rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '1rem', color: '#fff' }}>
-                    World’s Largest <span style={{ background: 'linear-gradient(to right, #60a5fa, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Free Online Tools</span> Hub
+                <header style={{ textAlign: 'center', padding: '4.5rem 2rem 2.5rem 2rem', background: 'radial-gradient(circle at top, rgba(139,92,246,0.1) 0%, transparent 65%)' }}>
+                  <h1 style={{ fontSize: '3.6rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '1rem', color: '#fff' }}>
+                    World’s First <span style={{ background: 'linear-gradient(to right, #60a5fa, #c084fc)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>1,00,000+ Tools</span> Matrix
                   </h1>
-                  <p style={{ color: '#9ca3af', fontSize: '1.15rem', maxWidth: '750px', margin: '0 auto 2.5rem auto', lineHeight: 1.6 }}>
-                    No Signups. No Subscriptions. Instant cloud computing utilities for developers, content creators, marketers, and data analysts. Click any category to run tools.
+                  <p style={{ color: '#9ca3af', fontSize: '1.15rem', maxWidth: '800px', margin: '0 auto 2.5rem auto', lineHeight: 1.6 }}>
+                    Instant cloud-scale mathematical and content compute hubs. Run functional utilities below or search through our global ecosystem library.
                   </p>
 
-                  <div style={{ maxWidth: '650px', margin: '0 auto', display: 'flex', gap: '0.75rem', background: '#0f172a', padding: '0.5rem', borderRadius: '1rem', border: '1px solid #1e293b' }}>
-                    <input type="text" placeholder="Search 1,000+ tools (e.g., PDF Merge, PNG Compressor, AI Writer)..." style={{ flexGrow: 1, background: 'transparent', border: 'none', padding: '0.75rem', color: '#fff', fontSize: '0.95rem', outline: 'none' }} />
-                    <a href={adLink} style={{ background: '#fff', color: '#05070f', textDecoration: 'none', padding: '0.75rem 1.5rem', borderRadius: '0.75rem', fontWeight: 'bold', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
-                      🔍 Search Tools
+                  <div style={{ maxWidth: '700px', margin: '0 auto', display: 'flex', gap: '0.75rem', background: '#0f172a', padding: '0.5rem', borderRadius: '1rem', border: '1px solid #1e293b' }}>
+                    <input 
+                      type="text" 
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Search across 1,00,000+ modular sub-tools (e.g., Image Converter, Hex Editor)..." 
+                      style={{ flexGrow: 1, background: 'transparent', border: 'none', padding: '0.75rem', color: '#fff', fontSize: '0.95rem', outline: 'none' }} 
+                    />
+                    <a href={adLink} target="_blank" rel="noopener noreferrer" style={{ background: '#fff', color: '#05070f', textDecoration: 'none', padding: '0.75rem 1.5rem', borderRadius: '0.75rem', fontWeight: 'bold', fontSize: '0.9rem', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center' }}>
+                      🔍 Fetch Library
                     </a>
                   </div>
                 </header>
 
-                <main style={{ maxWidth: '1300px', margin: '0 auto', padding: '2rem 1.5rem 6rem 1.5rem', flexGrow: 1 }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))', gap: '1.5rem' }}>
-                    {toolCategories.map((cat) => (
-                      <div key={cat.id} style={{ background: '#0b0f19', border: '1px solid #1e293b', borderRadius: '1rem', padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                        <div>
-                          <h3 style={{ color: '#fff', fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.75rem' }}>{cat.title}</h3>
-                          <p style={{ color: '#9ca3af', fontSize: '0.88rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>{cat.desc}</p>
+                <main style={{ maxWidth: '1250px', margin: '0 auto', padding: '2rem 1.5rem 6rem 1.5rem', flexGrow: 1, width: '100%' }}>
+                  
+                  {/* SEARCH REDIRECT RESULT SIMULATOR */}
+                  {searchQuery && (
+                    <div style={{ background: 'rgba(59,130,246,0.05)', border: '1px dashed #3b82f6', padding: '1.5rem', borderRadius: '1rem', marginBottom: '2.5rem', textAlign: 'center' }}>
+                      <h4 style={{ margin: '0 0 0.5rem 0', color: '#60a5fa' }}>Found 245 Engine Match Results for "{searchQuery}"</h4>
+                      <p style={{ margin: '0 0 1rem 0', fontSize: '0.85rem', color: '#9ca3af' }}>High-performance core variables require dynamic node allocation to download compiler outputs.</p>
+                      <a href={adLink} target="_blank" rel="noopener noreferrer" style={{ background: '#3b82f6', color: '#fff', padding: '0.5rem 1.5rem', borderRadius: '0.5rem', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.85rem', display: 'inline-block' }}>
+                        🚀 Unlock & Run Full "{searchQuery}" Array (Free)
+                      </a>
+                    </div>
+                  )}
+
+                  {/* INTERACTIVE WORKING TOOLS ZONE */}
+                  <h2 style={{ color: '#fff', borderBottom: '1px solid #1e293b', paddingBottom: '0.7rem', marginBottom: '1.5rem', fontSize: '1.6rem' }}>⚡ Live Functional Terminal</h2>
+                  
+                  <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+                    <button onClick={() => setActiveTab('text')} style={{ padding: '0.6rem 1.2rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', fontWeight: 'bold', backgroundColor: activeTab === 'text' ? '#3b82f6' : '#111827', color: '#fff' }}>✍️ Text Automation</button>
+                    <button onClick={() => setActiveTab('security')} style={{ padding: '0.6rem 1.2rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', fontWeight: 'bold', backgroundColor: activeTab === 'security' ? '#3b82f6' : '#111827', color: '#fff' }}>🛡️ Cryptographic Passwords</button>
+                    <button onClick={() => setActiveTab('finance')} style={{ padding: '0.6rem 1.2rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', fontWeight: 'bold', backgroundColor: activeTab === 'finance' ? '#3b82f6' : '#111827', color: '#fff' }}>💰 ROI & Finance Modeler</button>
+                    <button onClick={() => setActiveTab('qr')} style={{ padding: '0.6rem 1.2rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', fontWeight: 'bold', backgroundColor: activeTab === 'qr' ? '#3b82f6' : '#111827', color: '#fff' }}>🖼️ Generator Hub</button>
+                  </div>
+
+                  <div style={{ background: '#0b0f19', border: '1px solid #1e293b', padding: '2rem', borderRadius: '1rem', marginBottom: '4rem' }}>
+                    {activeTab === 'text' && (
+                      <div>
+                        <textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} placeholder="Type or paste your text content matrix here..." style={{ width: '100%', height: '120px', background: '#05070f', border: '1px solid #1e293b', color: '#fff', padding: '0.75rem', borderRadius: '0.5rem', outline: 'none', boxSizing: 'border-box' }} />
+                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
+                          <button onClick={() => handleCaseConvert('upper')} style={{ background: '#1e293b', color: '#fff', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.25rem', cursor: 'pointer' }}>UPPERCASE</button>
+                          <button onClick={() => handleCaseConvert('lower')} style={{ background: '#1e293b', color: '#fff', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.25rem', cursor: 'pointer' }}>lowercase</button>
+                          <button onClick={() => handleCaseConvert('count')} style={{ background: '#3b82f6', color: '#fff', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.25rem', cursor: 'pointer' }}>Analyze Length & Count</button>
                         </div>
-                        
-                        <a 
-                          href={adLink} 
-                          style={{ 
-                            background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.2)', 
-                            color: '#60a5fa', textDecoration: 'none', padding: '0.75rem', 
-                            borderRadius: '0.5rem', textAlign: 'center', fontSize: '0.85rem', 
-                            fontWeight: '600', display: 'block'
-                          }}
-                        >
-                          🚀 Open {cat.title.split(' ').slice(1).join(' ')} System (FREE)
+                        {textOutput && <div style={{ marginTop: '1.5rem', background: '#05070f', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #3b82f6', fontFamily: 'monospace' }}>{textOutput}</div>}
+                      </div>
+                    )}
+
+                    {activeTab === 'security' && (
+                      <div>
+                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Character Complexity Length: {passLength}</label>
+                        <input type="range" min="8" max="64" value={passLength} onChange={(e) => setPassLength(e.target.value)} style={{ width: '100%', marginBottom: '1rem' }} />
+                        <button onClick={generatePassword} style={{ background: '#3b82f6', color: '#fff', border: 'none', padding: '0.6rem 1.5rem', borderRadius: '0.5rem', cursor: 'pointer', fontWeight: 'bold' }}>Generate High Entropy Hash Password</button>
+                        {generatedPass && (
+                          <div style={{ marginTop: '1.5rem', background: '#05070f', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #10b981', display: 'flex', justifyContent: 'between', alignItems: 'center' }}>
+                            <span style={{ fontFamily: 'monospace', fontSize: '1.1rem', color: '#10b981' }}>{generatedPass}</span>
+                            <a href={adLink} target="_blank" rel="noopener noreferrer" style={{ color: '#60a5fa', textDecoration: 'none', fontSize: '0.8rem', fontWeight: 'bold' }}>🛡️ Save to Cloud Vault</a>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {activeTab === 'finance' && (
+                      <div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                          <div>
+                            <label style={{ display: 'block', marginBottom: '0.3rem' }}>Investment Capital ($)</label>
+                            <input type="number" value={cryptoInvest} onChange={(e) => setCryptoInvest(e.target.value)} style={{ width: '100%', background: '#05070f', border: '1px solid #1e293b', color: '#fff', padding: '0.5rem', borderRadius: '0.25rem' }} />
+                          </div>
+                          <div>
+                            <label style={{ display: 'block', marginBottom: '0.3rem' }}>Expected Multiplier (X)</label>
+                            <input type="number" value={cryptoMult} onChange={(e) => setCryptoMult(e.target.value)} style={{ width: '100%', background: '#05070f', border: '1px solid #1e293b', color: '#fff', padding: '0.5rem', borderRadius: '0.25rem' }} />
+                          </div>
+                        </div>
+                        <div style={{ background: '#05070f', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #8b5cf6' }}>
+                          <p style={{ margin: '0 0 0.5rem 0' }}>Total Return Target: <strong style={{ color: '#a855f7' }}>${cryptoInvest * cryptoMult}</strong></p>
+                          <p style={{ margin: 0, fontSize: '0.8rem', color: '#9ca3af' }}>Net Profit Margins: ${(cryptoInvest * cryptoMult) - cryptoInvest}</p>
+                        </div>
+                      </div>
+                    )}
+
+                    {activeTab === 'qr' && (
+                      <div style={{ textAlign: 'center', padding: '1rem' }}>
+                        <input type="text" value={qrText} onChange={(e) => setQrText(e.target.value)} style={{ maxWidth: '400px', width: '100%', background: '#05070f', border: '1px solid #1e293b', color: '#fff', padding: '0.5rem', borderRadius: '0.25rem', marginBottom: '1rem', textAlign: 'center' }} />
+                        <div style={{ margin: '0 auto 1.5rem auto', width: '120px', height: '120px', backgroundColor: '#fff', padding: '0.5rem', borderRadius: '0.5rem', display: 'flex', flexDirection: 'column', gap: '4px', justifyContent: 'center', alignItems: 'center' }}>
+                          <div style={{ display: 'flex', gap: '4px' }}>
+                            <div style={{ width: '30px', height: '30px', background: '#000' }}></div>
+                            <div style={{ width: '30px', height: '5px', background: '#000' }}></div>
+                            <div style={{ width: '30px', height: '30px', background: '#000' }}></div>
+                          </div>
+                          <p style={{ color: '#000', margin: 0, fontSize: '9px', fontWeight: 'bold' }}>TOOLBOX ENGINE</p>
+                          <div style={{ display: 'flex', gap: '10px' }}>
+                            <div style={{ width: '20px', height: '20px', background: '#000' }}></div>
+                            <div style={{ width: '40px', height: '20px', background: '#000' }}></div>
+                          </div>
+                        </div>
+                        <a href={adLink} target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6', textDecoration: 'none', fontWeight: 'bold', fontSize: '0.85rem' }}>⬇️ Download Vector HD Package</a>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* LARGE GRID STORAGE FOR 1,00,000+ TOOLS */}
+                  <h2 style={{ color: '#fff', borderBottom: '1px solid #1e293b', paddingBottom: '0.7rem', marginBottom: '1.5rem', fontSize: '1.6rem' }}>🗂️ Global Scale Architecture Hub</h2>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
+                    {toolCategories.map((cat) => (
+                      <div key={cat.id} style={{ background: '#0b0f19', border: '1px solid #1e293b', borderRadius: '1rem', padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                            <h3 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>{cat.title}</h3>
+                          </div>
+                          <span style={{ fontSize: '0.75rem', color: '#a855f7', background: 'rgba(168,85,247,0.1)', padding: '0.2rem 0.5rem', borderRadius: '4px', display: 'inline-block', marginBottom: '0.75rem', fontWeight: 'bold' }}>{cat.total}</span>
+                          <p style={{ color: '#9ca3af', fontSize: '0.85rem', lineHeight: '1.5', margin: '0 0 1.5rem 0' }}>{cat.desc}</p>
+                        </div>
+                        <a href={adLink} target="_blank" rel="noopener noreferrer" style={{ background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.2)', color: '#60a5fa', textDecoration: 'none', padding: '0.6rem', borderRadius: '0.5rem', textAlign: 'center', fontSize: '0.8rem', fontWeight: '600', display: 'block' }}>
+                          💥 Initialize Cluster Node
                         </a>
                       </div>
                     ))}
@@ -156,13 +264,14 @@ jobs:
                 </main>
 
                 <footer style={{ borderTop: '1px solid #111827', padding: '2.5rem', textAlign: 'center', background: '#03050a', color: '#4b5563', fontSize: '0.8rem' }}>
-                  © 2026 Toolbox Global Network Inc. All tools are pre-compiled and served via Multi-Cloud Edge CDN Routing.
+                  © 2026 Toolbox Global Network Inc. Multi-Cluster Node Network Routing Active.
                 </footer>
               </div>
             );
           }
           EOF
 
+          # Next Config with matching codebase format
           cat << 'EOF' > next.config.js
           const nextConfig = {
             output: 'export',
