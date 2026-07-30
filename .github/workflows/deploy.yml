@@ -14,11 +14,13 @@ jobs:
       - name: Fetch Core Repository
         uses: actions/checkout@v4
 
+      # ==========================================
+      # FIXED: Cache removed to avoid lockfile error
+      # ==========================================
       - name: Setup Enterprise Node.js Architecture
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       # =======================================================
       # CORE ENGINE: AUTOMATICALLY GENERATING 1000+ TOOLS SITE
@@ -35,7 +37,6 @@ jobs:
             description: 'Access 1000+ online developer, SEO, PDF, and productivity tools for free instantly.',
           };
 
-          // 15+ Core Categories and Predictive Thousands of Tools Matrix
           const toolCategories = [
             { id: 'pdf', title: '📄 PDF Utilities Suite', desc: 'Merge, Split, Compress, Convert, Word to PDF, PDF to JPG, Sign PDF, Protect PDF, Unlock PDF, Rotate PDF, Number Pages, Watermark, HTML to PDF, EPUB to PDF, PDF to Text, Organize PDF.' },
             { id: 'seo', title: '🔍 Search Engine Optimization (SEO)', desc: 'Keyword Research, Backlink Checker, SEO Audit, Meta Tag Generator, XML Sitemap Creator, Robots.txt Generator, Domain Authority, Page Speed Insights, Article Rewriter, Plagiarism Checker.' },
@@ -62,7 +63,6 @@ jobs:
                 backgroundColor: '#05070f', color: '#f3f4f6', minHeight: '100vh',
                 display: 'flex', flexDirection: 'column'
               }}>
-                {/* ADVANCED MONETAG AD INJECTION */}
                 <script 
                   src={process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#'}
                   strategy="afterInteractive"
@@ -70,7 +70,6 @@ jobs:
                   async
                 />
 
-                {/* PREMIUM GLOWING NAVBAR */}
                 <nav style={{
                   borderBottom: '1px solid #111827', padding: '1.25rem 2.5rem',
                   display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -93,7 +92,6 @@ jobs:
                   </div>
                 </nav>
 
-                {/* MAIN INFRASTRUCTURE HERO & SEARCH PORTAL */}
                 <header style={{ textAlign: 'center', padding: '4rem 2rem 2rem 2rem', background: 'radial-gradient(circle at top, rgba(124,58,237,0.08) 0%, transparent 60%)' }}>
                   <h1 style={{ fontSize: '3.5rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: '1rem', color: '#fff' }}>
                     World’s Largest <span style={{ background: 'linear-gradient(to right, #60a5fa, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Free Online Tools</span> Hub
@@ -102,7 +100,6 @@ jobs:
                     No Signups. No Subscriptions. Instant cloud computing utilities for developers, content creators, marketers, and data analysts. Click any category to run tools.
                   </p>
 
-                  {/* HIGHLY INTERACTIVE AD SEARCH CONVERTOR BAR */}
                   <div style={{ maxWidth: '650px', margin: '0 auto', display: 'flex', gap: '0.75rem', background: '#0f172a', padding: '0.5rem', borderRadius: '1rem', border: '1px solid #1e293b' }}>
                     <input type="text" placeholder="Search 1,000+ tools (e.g., PDF Merge, PNG Compressor, AI Writer)..." style={{ flexGrow: 1, background: 'transparent', border: 'none', padding: '0.75rem', color: '#fff', fontSize: '0.95rem', outline: 'none' }} />
                     <a href={process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#'} style={{ background: '#fff', color: '#05070f', textDecoration: 'none', padding: '0.75rem 1.5rem', borderRadius: '0.75rem', fontWeight: 'bold', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
@@ -111,24 +108,22 @@ jobs:
                   </div>
                 </header>
 
-                {/* ADVANCED MULTI-CATEGORY TOOLS GRID */}
                 <main style={{ maxWidth: '1300px', margin: '0 auto', padding: '2rem 1.5rem 6rem 1.5rem', flexGrow: 1 }}>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))', gap: '1.5rem' }}>
                     {toolCategories.map((cat) => (
-                      <div key={cat.id} style={{ background: '#0b0f19', border: '1px solid #1e293b', borderRadius: '1rem', padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', transition: 'border-color 0.2s' }}>
+                      <div key={cat.id} style={{ background: '#0b0f19', border: '1px solid #1e293b', borderRadius: '1rem', padding: '1.75rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                         <div>
                           <h3 style={{ color: '#fff', fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.75rem' }}>{cat.title}</h3>
                           <p style={{ color: '#9ca3af', fontSize: '0.88rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>{cat.desc}</p>
                         </div>
                         
-                        {/* THE REDIRECTION TRIGGER: EVOKES MONETAG LINK ON EVERY CLICK */}
                         <a 
                           href={process.env.NEXT_PUBLIC_MONETAG_DIRECT_LINK || '#'} 
                           style={{ 
                             background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.2)', 
                             color: '#60a5fa', textDecoration: 'none', padding: '0.75rem', 
                             borderRadius: '0.5rem', textAlign: 'center', fontSize: '0.85rem', 
-                            fontWeight: '600', display: 'block', transition: 'all 0.2s'
+                            fontWeight: '600', display: 'block'
                           }}
                         >
                           🚀 Open {cat.title.split(' ').slice(1).join(' ')} System (FREE)
@@ -138,7 +133,6 @@ jobs:
                   </div>
                 </main>
 
-                {/* FOOTER ENTERPRISE */}
                 <footer style={{ borderTop: '1px solid #111827', padding: '2.5rem', textAlign: 'center', background: '#03050a', color: '#4b5563', fontSize: '0.8rem' }}>
                   © 2026 Toolbox Global Network Inc. All tools are pre-compiled and served via Multi-Cloud Edge CDN Routing.
                 </footer>
@@ -147,7 +141,6 @@ jobs:
           }
           EOF
 
-          # Injecting highly optimized web platform configs
           cat << 'EOF' > package.json
           {
             "name": "global-mega-toolbox",
