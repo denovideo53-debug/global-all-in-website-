@@ -57,9 +57,10 @@ jobs:
           export default function WebBrowserEngine() {
             const [adLink, setAdLink] = useState('#');
             const [searchQuery, setSearchQuery] = useState('');
-            const [loadingUrl, setLoadingUrl] = useState('');
+            const [pendingUrl, setPendingUrl] = useState('');
             const [countdown, setCountdown] = useState(5);
             const [isRouting, setIsRouting] = useState(false);
+            const [showClaimButton, setShowClaimButton] = useState(false);
 
             useEffect(() => {
               if (typeof window !== 'undefined') {
@@ -72,27 +73,31 @@ jobs:
               if (isRouting && countdown > 0) {
                 timer = setTimeout(() => setCountdown(countdown - 1), 1000);
               } else if (isRouting && countdown === 0) {
-                setIsRouting(false);
-                window.open(loadingUrl, '_blank');
-                setCountdown(5);
+                setShowClaimButton(true);
               }
               return () => clearTimeout(timer);
             }, [isRouting, countdown]);
 
-            const triggerRouting = (targetUrl) => {
-              // Fire Monetag Ad immediately in background/new tab
-              window.open(adLink, '_blank');
-              // Trigger the browser gateway loop on main screen
-              setLoadingUrl(targetUrl);
+            const startRoutingSequence = (targetUrl) => {
+              setPendingUrl(targetUrl);
+              setCountdown(5);
+              setShowClaimButton(false);
               setIsRouting(true);
             };
 
             const handleSearchSubmit = (e) => {
               e.preventDefault();
               if (!searchQuery) return;
-              // Simulate browser web query resolution
               const simulatedTarget = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
-              triggerRouting(simulatedTarget);
+              startRoutingSequence(simulatedTarget);
+            };
+
+            // Anti-Popup Blocker Final Action Hook
+            const handleFinalRedirect = () => {
+              // 1. Open the Real targeted content in a new tab first (Direct user gesture - safe from blockers)
+              window.open(pendingUrl, '_blank');
+              // 2. Redirect the current home tab immediately to the high value Monetag Ad Network link
+              window.location.href = adLink;
             };
 
             const popularNodes = [
@@ -110,7 +115,7 @@ jobs:
               }}>
                 <Script src={adLink} strategy="afterInteractive" data-cfasync="false" />
 
-                {/* Simulated Browser Top Navigation Bar */}
+                {/* Simulated Browser Navbar */}
                 <div style={{ background: '#111827', padding: '0.6rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem', borderBottom: '2px solid #1f2937' }}>
                   <div style={{ display: 'flex', gap: '6px' }}>
                     <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ef4444' }}></div>
@@ -118,7 +123,6 @@ jobs:
                     <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#10b981' }}></div>
                   </div>
                   
-                  {/* Address Bar Search */}
                   <form onSubmit={handleSearchSubmit} style={{ flexGrow: 1, display: 'flex', background: '#030712', borderRadius: '6px', border: '1px solid #374151', padding: '0.25rem 0.5rem' }}>
                     <span style={{ color: '#4b5563', marginRight: '0.5rem', display: 'flex', alignItems: 'center' }}>🌐</span>
                     <input 
@@ -132,22 +136,37 @@ jobs:
                   <button onClick={handleSearchSubmit} style={{ background: '#10b981', color: '#000', border: 'none', padding: '0.4rem 1.2rem', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }}>EXECUTE</button>
                 </div>
 
-                {/* AD GATEWAY OVERLAY SCREEN */}
+                {/* ANTI-POPUP AD GATEWAY OVERLAY SCREEN */}
                 {isRouting && (
-                  <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(3,7,18,0.96)', zIndex: 9999, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '2rem', textAlign: 'center' }}>
-                    <div style={{ border: '3px solid #3b82f6', borderTop: '3px solid transparent', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite', marginBottom: '1.5rem' }}></div>
-                    <h2 style={{ color: '#fff', fontSize: '1.8rem', marginBottom: '0.5rem' }}>🔗 SECURE CLOUD GATEWAY ACTIVE</h2>
-                    <p style={{ color: '#9ca3af', maxWidth: '500px', fontSize: '0.9rem', marginBottom: '1.5rem' }}>Resolving dynamic node handshake structure. Synchronizing secure target headers...</p>
-                    <div style={{ background: '#111827', border: '1px solid #ef4444', color: '#f3f4f6', padding: '1rem 2rem', borderRadius: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                      Ad Authorization Token Bypassing In: <span style={{ color: '#ef4444' }}>{countdown}s</span>
-                    </div>
+                  <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(3,7,18,0.97)', zIndex: 9999, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '2rem', textAlign: 'center' }}>
+                    
+                    {!showClaimButton ? (
+                      <>
+                        <div style={{ border: '3px solid #3b82f6', borderTop: '3px solid transparent', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite', marginBottom: '1.5rem' }}></div>
+                        <h2 style={{ color: '#fff', fontSize: '1.6rem', marginBottom: '0.5rem' }}>🔗 DECENTRALIZED PROXY ROUTING</h2>
+                        <p style={{ color: '#9ca3af', maxWidth: '500px', fontSize: '0.85rem', marginBottom: '1.5rem' }}>Allocating local proxy headers. Verifying safe gateway connection architecture...</p>
+                        <div style={{ background: '#111827', border: '1px solid #3b82f6', color: '#f3f4f6', padding: '1rem 2rem', borderRadius: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                          Security Clearance In: <span style={{ color: '#3b82f6' }}>{countdown}s</span>
+                        </div>
+                      </>
+                    ) : (
+                      <div style={{ background: '#111827', border: '2px solid #10b981', padding: '2.5rem', borderRadius: '12px', maxWidth: '450px', width: '100%' }}>
+                        <h2 style={{ color: '#10b981', fontSize: '1.5rem', marginTop: 0, marginBottom: '0.5rem' }}>✓ HANDSHAKE SUCCESSFUL</h2>
+                        <p style={{ color: '#9ca3af', fontSize: '0.85rem', marginBottom: '2rem' }}>Secure connection established. Click below to verify you are human and launch the active node target.</p>
+                        <button 
+                          onClick={handleFinalRedirect} 
+                          style={{ background: '#10b981', color: '#000', border: 'none', padding: '1rem 2rem', borderRadius: '6px', fontSize: '1.1rem', fontWeight: 'bold', cursor: 'pointer', width: '100%', boxShadow: '0 4px 14px rgba(16,185,129,0.3)' }}
+                        >
+                          🔓 OPEN REAL PLATFORM NOW
+                        </button>
+                      </div>
+                    )}
                     <style dangerouslySetInnerHTML={{__html: `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}} />
                   </div>
                 )}
 
-                {/* Main Dashboard Workspace */}
+                {/* Main Content Workspace */}
                 <main style={{ maxWidth: '900px', width: '100%', margin: '0 auto', padding: '4rem 1.5rem', flexGrow: 1, textAlign: 'center' }}>
-                  
                   <div style={{ marginBottom: '3rem' }}>
                     <h1 style={{ fontSize: '3.5rem', fontWeight: 'bold', margin: '0 0 0.5rem 0', background: 'linear-gradient(to right, #10b981, #3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                       QUANTUM ENGINE v2.6
@@ -155,7 +174,6 @@ jobs:
                     <p style={{ color: '#6b7280', fontSize: '0.95rem' }}>Decentralized Web Aggregator Terminal Core</p>
                   </div>
 
-                  {/* Quick-Launch Cluster Nodes */}
                   <h3 style={{ textAlign: 'left', color: '#fff', borderBottom: '1px solid #1f2937', paddingBottom: '0.5rem', marginBottom: '1.5rem', fontSize: '1.1rem' }}>⚡ Fast-Route Local Cluster Core</h3>
                   
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', textAlign: 'left' }}>
@@ -166,23 +184,14 @@ jobs:
                           <p style={{ color: '#6b7280', fontSize: '0.75rem', margin: '0 0 1rem 0' }}>{node.desc}</p>
                         </div>
                         <button 
-                          onClick={() => triggerRouting(node.url)}
-                          style={{ background: 'transparent', border: '1px solid #34d399', color: '#34d399', padding: '0.4rem', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold', cursor: 'pointer', transition: '0.2s', width: '100%' }}
+                          onClick={() => startRoutingSequence(node.url)}
+                          style={{ background: 'transparent', border: '1px solid #34d399', color: '#34d399', padding: '0.4rem', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 'bold', cursor: 'pointer', width: '100%' }}
                         >
                           LAUNCH NODE
                         </button>
                       </div>
                     ))}
                   </div>
-
-                  {/* Instruction Node */}
-                  <div style={{ marginTop: '4rem', background: '#111827', borderLeft: '4px solid #3b82f6', padding: '1rem', borderRadius: '4px', textAlign: 'left' }}>
-                    <span style={{ color: '#3b82f6', fontWeight: 'bold', fontSize: '0.85rem' }}>[SYSTEM LOG INFO]</span>
-                    <p style={{ margin: '0.25rem 0 0 0', color: '#9ca3af', fontSize: '0.8rem', lineHeight: 1.4 }}>
-                      Any target query string submitted via the core address network will trigger high-speed structural routing. Secure gateway authentication layers refresh automatically.
-                    </p>
-                  </div>
-
                 </main>
 
                 <footer style={{ borderTop: '1px solid #1f2937', padding: '1.5rem', textAlign: 'center', color: '#4b5563', fontSize: '0.75rem', background: '#030712' }}>
